@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.martinb.marvelapp.R;
-import com.martinb.marvelapp.data.model.Data;
 import com.martinb.marvelapp.data.model.Result;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +19,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
     private List<Result> mCharacter;
     private LayoutInflater mInflater;
+    private OnItemClicked onItemClickedListener;
 
 
     CharacterAdapter(Context context, List<Result> data) {
@@ -34,12 +34,22 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         return new ViewHolder(view);
     }
 
+    public void setOnItemClickedListener(OnItemClicked onItemClickedListener) {
+        this.onItemClickedListener = onItemClickedListener;
+    }
+
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Result character = mCharacter.get(position);
+        final Result character = mCharacter.get(position);
         holder.characterName.setText(character.getName());
-        Picasso.get().load(Uri.parse(character.getResourceURI())).into(holder.characterImage);
+        Picasso.get().load(Uri.parse(String.format("%s.%s",character.getThumbnail().getPath(),character.getThumbnail().getExtension()))).into(holder.characterImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickedListener.onItemSelected(character);
+            }
+        });
     }
 
     // total number of rows
@@ -58,7 +68,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             super(itemView);
             characterImage = itemView.findViewById(R.id.characterImage);
             characterName = itemView.findViewById(R.id.characterName);
-
         }
 
     }
