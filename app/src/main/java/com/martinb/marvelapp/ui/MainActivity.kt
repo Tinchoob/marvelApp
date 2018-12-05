@@ -19,8 +19,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private var adapter: CharacterAdapter? = null
-    private var recyclerView: RecyclerView? = null
+    private lateinit var adapter: CharacterAdapter
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         // set up the RecyclerView
         recyclerView = findViewById(R.id.baseRecycler)
-        recyclerView!!.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         MarvelApiClient.getInstance(applicationContext).data.enqueue(object : Callback<Character> {
             override fun onResponse(call: Call<Character>, response: Response<Character>) {
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAdapter(character: Character) {
         adapter = CharacterAdapter(this, character.data.results!!)
-        recyclerView!!.adapter = adapter
+        recyclerView.adapter = adapter
     }
 
     fun checkPermissionStatus() {

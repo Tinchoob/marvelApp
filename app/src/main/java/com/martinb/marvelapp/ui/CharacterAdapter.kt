@@ -20,9 +20,9 @@ class CharacterAdapter(val context: Context, val data: List<Result>) : RecyclerV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val character = data.get(position)
-        holder.characterName.setText(character.name)
-        Picasso.get().load(Uri.parse("${character.thumbnail?.path}.${character.thumbnail?.extension}")).into(holder.characterImage);
+        val character = data[position]
+        holder.characterName.text = character.name
+        Picasso.get().load(Uri.parse(String.format("%s.%s", character.thumbnail?.path,character.thumbnail?.extension))).into(holder.characterImage);
     }
 
     override fun getItemCount(): Int {
