@@ -16,6 +16,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "APIKEY", '"e0baeed6dc7ee276913f94db6a48dd70"'
+            buildConfigField "String", "SECRET", '"6967f5153d5b47ba5d75d2b275431e5ddde73ef5"'
             buildConfigField "String", "BASE_URL", '"https://gateway.marvel.com/"'
         }
         release {

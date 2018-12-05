@@ -42,7 +42,7 @@ public class MarvelApiClient {
     }
 
     public Call<Character> getData(){
-        String hash = md5(String.format("%s%s%s","1","6967f5153d5b47ba5d75d2b275431e5ddde73ef5",BuildConfig.APIKEY));
+        String hash = md5(String.format("%s%s%s","1",BuildConfig.SECRET,BuildConfig.APIKEY));
         return service.getData("1",BuildConfig.APIKEY,hash);
     }
 
