@@ -1,14 +1,11 @@
 package com.martinb.marvelapp.ui
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.data.model.Result
 import kotlinx.android.synthetic.main.fragment_character_description.*
@@ -27,7 +24,7 @@ class CharacterDescriptionFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        desciption.text = character.description
+        desciption.text = if(character.description != "") character.description else "No description avaliable!!"
     }
 
     fun onButtonPressed(uri: Uri) {
