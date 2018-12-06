@@ -25,9 +25,8 @@ class CharacterAdapter(val context: Context, val data: List<Result>) : RecyclerV
         Picasso.get().load(Uri.parse(String.format("%s.%s", character.thumbnail?.path,character.thumbnail?.extension))).into(holder.characterImage);
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = data.size
+
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val characterImage = view.findViewById<ImageView>(R.id.characterImage)
