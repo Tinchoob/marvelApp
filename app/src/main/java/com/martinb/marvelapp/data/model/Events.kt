@@ -1,21 +1,4 @@
 package com.martinb.marvelapp.data.model
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+data class Events(val avaliable : String , val returned: String, val collectionURI: String, val items: List<Item>)
 
-class Events {
-
-    @SerializedName("available")
-    @Expose
-    var available: String? = null
-    @SerializedName("returned")
-    @Expose
-    var returned: String? = null
-    @SerializedName("collectionURI")
-    @Expose
-    var collectionURI: String? = null
-    @SerializedName("items")
-    @Expose
-    var items: List<Item>? = null
-
-}

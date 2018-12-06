@@ -2,53 +2,44 @@ package com.martinb.marvelapp.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
 import com.martinb.marvelapp.R
-import com.martinb.marvelapp.data.MarvelApiClient
+import com.martinb.marvelapp.data.DataRepository
 import com.martinb.marvelapp.data.model.Character
+import com.martinb.marvelapp.data.model.Result
+import com.martinb.marvelapp.data.remote.MarvelApiClient
+import com.martinb.marvelapp.data.remote.RemoteDataListener
+import kotlinx.android.synthetic.main.activity_main.*
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+class MainActivity : AppCompatActivity(),RemoteDataListener,OnItemClicked {
 
-class MainActivity : AppCompatActivity() {
-
-    private var adapter: CharacterAdapter? = null
-    private var recyclerView: RecyclerView? = null
+    private lateinit var adapter: CharacterAdapter
+    private lateinit var characterDescriptionFragment : CharacterDescriptionFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         checkPermissionStatus()
 
-        // set up the RecyclerView
-        recyclerView = findViewById(R.id.baseRecycler)
-        recyclerView!!.layoutManager = LinearLayoutManager(this)
+        baseRecycler.layoutManager = LinearLayoutManager(this)
 
-        MarvelApiClient.getInstance(applicationContext).data.enqueue(object : Callback<Character> {
-            override fun onResponse(call: Call<Character>, response: Response<Character>) {
-                val character = response.body()
-                setAdapter(character!!)
-            }
+        val repository = DataRepository(MarvelApiClient.create(),this)
 
-            override fun onFailure(call: Call<Character>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
+        repository.getData()
     }
+
 
     private fun setAdapter(character: Character) {
-        adapter = CharacterAdapter(this, character.data.results!!)
-        recyclerView!!.adapter = adapter
+        adapter = CharacterAdapter(this, character.data.results,this)
+        baseRecycler.adapter = adapter
     }
 
-    fun checkPermissionStatus() {
+    private fun checkPermissionStatus() {
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
 
@@ -56,5 +47,15 @@ class MainActivity : AppCompatActivity() {
                     arrayOf(Manifest.permission.INTERNET),
                     214)
         }
+    }
+
+    override fun charactersInfo(character: Character?) {
+        character?.let { setAdapter(character)}
+    }
+
+    override fun onItemClicked(character: Result?) {
+        character?.let {characterDescriptionFragment = CharacterDescriptionFragment.newInstance(character)}
+        val fm = this@MainActivity.supportFragmentManager
+        characterDescriptionFragment.show(fm,"description")
     }
 }
