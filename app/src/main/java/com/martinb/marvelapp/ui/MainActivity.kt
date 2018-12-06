@@ -7,26 +7,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.data.DataRepository
-import com.martinb.marvelapp.data.MarvelApiClient
 import com.martinb.marvelapp.data.model.Character
+import com.martinb.marvelapp.data.model.Result
+import com.martinb.marvelapp.data.remote.MarvelApiClient
 import com.martinb.marvelapp.data.remote.RemoteDataListener
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),RemoteDataListener {
+class MainActivity : AppCompatActivity(),RemoteDataListener,OnItemClicked {
 
     private lateinit var adapter: CharacterAdapter
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var characterDescriptionFragment : CharacterDescriptionFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         checkPermissionStatus()
 
-        // set up the RecyclerView
-        recyclerView = findViewById(R.id.baseRecycler)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        baseRecycler.layoutManager = LinearLayoutManager(this)
 
         val repository = DataRepository(MarvelApiClient.create(),this)
 
@@ -35,11 +34,11 @@ class MainActivity : AppCompatActivity(),RemoteDataListener {
 
 
     private fun setAdapter(character: Character) {
-        adapter = CharacterAdapter(this, character.data.results!!)
-        recyclerView.adapter = adapter
+        adapter = CharacterAdapter(this, character.data.results,this)
+        baseRecycler.adapter = adapter
     }
 
-    fun checkPermissionStatus() {
+    private fun checkPermissionStatus() {
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
 
@@ -50,6 +49,12 @@ class MainActivity : AppCompatActivity(),RemoteDataListener {
     }
 
     override fun charactersInfo(character: Character?) {
-        if(character != null) setAdapter(character)
+        character?.let { setAdapter(character)}
+    }
+
+    override fun onItemClicked(character: Result?) {
+        character?.let {characterDescriptionFragment = CharacterDescriptionFragment.newInstance(character)}
+        val fm = this@MainActivity.supportFragmentManager
+        characterDescriptionFragment.show(fm,"description")
     }
 }

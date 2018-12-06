@@ -1,7 +1,6 @@
-package com.martinb.marvelapp.data
+package com.martinb.marvelapp.data.remote
 
 import com.martinb.marvelapp.BuildConfig
-import com.martinb.marvelapp.data.remote.MarvelApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
