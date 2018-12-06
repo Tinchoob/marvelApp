@@ -6,20 +6,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.martinb.marvelapp.R
-import com.martinb.marvelapp.data.DataRepository
 import com.martinb.marvelapp.data.model.Character
 import com.martinb.marvelapp.data.model.Result
-import com.martinb.marvelapp.data.remote.MarvelApiClient
-import com.martinb.marvelapp.data.remote.RemoteDataListener
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),RemoteDataListener,OnItemClicked {
+class MainActivity : AppCompatActivity(), PresenterContract.MainView,OnItemClicked {
 
     private lateinit var adapter: CharacterAdapter
     private lateinit var characterDescriptionFragment : CharacterDescriptionFragment
+    private lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +25,9 @@ class MainActivity : AppCompatActivity(),RemoteDataListener,OnItemClicked {
 
         baseRecycler.layoutManager = LinearLayoutManager(this)
 
-        val repository = DataRepository(MarvelApiClient.create(),this)
-
-        repository.getData()
+        mainPresenter = MainPresenter()
+        mainPresenter.attachView(this)
+        mainPresenter.getCharacterInfo()
     }
 
 
