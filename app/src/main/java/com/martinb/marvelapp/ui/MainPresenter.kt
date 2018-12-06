@@ -22,5 +22,15 @@ class MainPresenter : BasePresenter<PresenterContract.MainView>(), PresenterCont
 
     }
 
+    override fun getCharacterFilteredInfo(input: String) {
+        compositeDisposable.add(
+                marvelApiClient.getDataFiltered("1",BuildConfig.APIKEY,hash,input)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe{ result -> mvpView?.filteredCharactersInfo(result)
+                        }
+        )
+   }
+
 
 }

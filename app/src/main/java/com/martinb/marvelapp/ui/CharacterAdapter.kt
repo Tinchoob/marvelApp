@@ -13,10 +13,15 @@ import com.martinb.marvelapp.data.model.Result
 import com.squareup.picasso.Picasso
 
 
-class CharacterAdapter(val context: Context, val data: List<Result>,val listener: OnItemClicked) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
+class CharacterAdapter(val context: Context, var data: List<Result>,val listener: OnItemClicked) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.hero_layout, parent, false))
+    }
+
+    fun setNewCharactersData(newData: List<Result>){
+        this.data = newData
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
