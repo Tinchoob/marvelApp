@@ -1,4 +1,4 @@
-package com.martinb.marvelapp.data.model;
+package com.martinb.marvelapp.data;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,7 +1,7 @@
 package com.martinb.marvelapp.data
 
 import com.martinb.marvelapp.BuildConfig
-import com.martinb.marvelapp.data.model.HashUtils.md5
+import com.martinb.marvelapp.data.HashUtils.md5
 import com.martinb.marvelapp.data.remote.MarvelApiService
 import com.martinb.marvelapp.data.remote.RemoteDataListener
 import io.reactivex.android.schedulers.AndroidSchedulers
