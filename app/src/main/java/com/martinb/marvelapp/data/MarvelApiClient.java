@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.martinb.marvelapp.BuildConfig;
 import com.martinb.marvelapp.data.model.Character;
+import com.martinb.marvelapp.data.remote.MarvelApiService;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,6 +20,7 @@ public class MarvelApiClient {
     private static MarvelApiClient instance;
     private Context context;
     private MarvelApiService service;
+    private String hash;
 
     public static MarvelApiClient getInstance(Context context){
         if(instance == null){
@@ -29,6 +31,7 @@ public class MarvelApiClient {
 
     private MarvelApiClient(Context context){
         this.context = context;
+      //  this.hash = md5(String.format("%s%s%s","1",BuildConfig.SECRET,BuildConfig.APIKEY));
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .build();
 
@@ -41,34 +44,6 @@ public class MarvelApiClient {
        service = retrofit.create(MarvelApiService.class);
     }
 
-    public Call<Character> getData(){
-        String hash = md5(String.format("%s%s%s","1",BuildConfig.SECRET,BuildConfig.APIKEY));
-        return service.getData("1",BuildConfig.APIKEY,hash);
-    }
 
-    public static final String md5(final String s) {
-        final String MD5 = "MD5";
-        try {
-            // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest
-                    .getInstance(MD5);
-            digest.update(s.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            // Create Hex String
-            StringBuilder hexString = new StringBuilder();
-            for (byte aMessageDigest : messageDigest) {
-                String h = Integer.toHexString(0xFF & aMessageDigest);
-                while (h.length() < 2)
-                    h = "0" + h;
-                hexString.append(h);
-            }
-            return hexString.toString();
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
 }
