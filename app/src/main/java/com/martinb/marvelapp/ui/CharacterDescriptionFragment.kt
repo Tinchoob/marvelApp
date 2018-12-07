@@ -26,7 +26,7 @@ class CharacterDescriptionFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         desciption.text = if(character.description != "") character.description else "No description avaliable!!"
-        Picasso.get().load(Uri.parse(String.format("%s/standard_fantastic.%s", character.thumbnail?.path,character.thumbnail?.extension))).into(image_character)
+        Picasso.get().load(Uri.parse("${character.thumbnail?.path}/standard_fantastic.${character.thumbnail?.extension}")).into(image_character)
     }
 
     fun onButtonPressed(uri: Uri) {

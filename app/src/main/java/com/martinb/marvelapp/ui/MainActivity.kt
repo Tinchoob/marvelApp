@@ -12,17 +12,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.data.model.Character
 import com.martinb.marvelapp.data.model.Result
+import com.martinb.marvelapp.di.marvelAppModule
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.startKoin
 
 class MainActivity : AppCompatActivity(), PresenterContract.MainView,OnItemClicked {
 
     private lateinit var adapter: CharacterAdapter
     private lateinit var characterDescriptionFragment : CharacterDescriptionFragment
-    private lateinit var mainPresenter: MainPresenter
+    private val mainPresenter : MainPresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        startKoin(this, listOf(marvelAppModule))
         checkPermissionStatus()
 
         baseRecycler.layoutManager = LinearLayoutManager(this)
@@ -33,8 +37,6 @@ class MainActivity : AppCompatActivity(), PresenterContract.MainView,OnItemClick
             else
                 Toast.makeText(applicationContext,"Please, insert something", LENGTH_SHORT).show()
         }
-
-        mainPresenter = MainPresenter()
         mainPresenter.attachView(this)
         mainPresenter.getCharacterInfo()
     }
