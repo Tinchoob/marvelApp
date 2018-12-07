@@ -27,8 +27,9 @@ class CharacterAdapter(val context: Context, var data: List<Result>,val listener
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val character = data[position]
         holder.characterName.text = character.name
+        holder.characterDescription.text = if(character.description == "") "No description avaliable!!" else character.description
         holder.bind(data[position], listener)
-        Picasso.get().load(Uri.parse(String.format("%s.%s", character.thumbnail?.path,character.thumbnail?.extension))).into(holder.characterImage)
+        Picasso.get().load(Uri.parse(String.format("%s/standard_fantastic.%s", character.thumbnail?.path,character.thumbnail?.extension))).into(holder.characterImage)
     }
 
     override fun getItemCount(): Int = data.size
@@ -37,6 +38,7 @@ class CharacterAdapter(val context: Context, var data: List<Result>,val listener
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val characterImage = view.findViewById<ImageView>(R.id.characterImage)
         val characterName = view.findViewById<TextView>(R.id.characterName)
+        val characterDescription = view.findViewById<TextView>(R.id.characterDescription)
 
         fun bind(character: Result,listener: OnItemClicked){
             itemView.setOnClickListener {

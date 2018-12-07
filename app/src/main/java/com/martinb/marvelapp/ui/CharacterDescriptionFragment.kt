@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.data.model.Result
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_character_description.*
 
 class CharacterDescriptionFragment : DialogFragment() {
@@ -25,6 +26,7 @@ class CharacterDescriptionFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         desciption.text = if(character.description != "") character.description else "No description avaliable!!"
+        Picasso.get().load(Uri.parse(String.format("%s/standard_fantastic.%s", character.thumbnail?.path,character.thumbnail?.extension))).into(image_character)
     }
 
     fun onButtonPressed(uri: Uri) {
