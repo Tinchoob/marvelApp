@@ -3,6 +3,8 @@ package com.martinb.marvelapp.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -24,6 +26,13 @@ class MainActivity : AppCompatActivity(), PresenterContract.MainView,OnItemClick
         checkPermissionStatus()
 
         baseRecycler.layoutManager = LinearLayoutManager(this)
+
+        submit_search.setOnClickListener {
+            if(!character_input.text.toString().equals(""))
+                mainPresenter.getCharacterFilteredInfo(character_input.text.toString())
+            else
+                Toast.makeText(applicationContext,"Please, insert something", LENGTH_SHORT).show()
+        }
 
         mainPresenter = MainPresenter()
         mainPresenter.attachView(this)
@@ -55,4 +64,9 @@ class MainActivity : AppCompatActivity(), PresenterContract.MainView,OnItemClick
         val fm = this@MainActivity.supportFragmentManager
         characterDescriptionFragment.show(fm,"description")
     }
+
+    override fun filteredCharactersInfo(character: Character?) {
+       character?.let { adapter.setNewCharactersData(character.data.results) }
+   }
+
 }
