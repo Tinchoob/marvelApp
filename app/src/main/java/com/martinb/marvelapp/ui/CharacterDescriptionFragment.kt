@@ -23,6 +23,7 @@ class CharacterDescriptionFragment : DialogFragment() {
         return inflater.inflate(R.layout.fragment_character_description, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         desciption.text = if(character.description != "") character.description else "No description avaliable!!"
