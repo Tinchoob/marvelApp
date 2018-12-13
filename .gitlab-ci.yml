@@ -68,10 +68,11 @@ package_develop:
   <<: *package_template_def
   stage: package
   environment: Development
+  when: manual
   only:
     - develop
   script:
-    - mv app/build/outputs/apk/app-debug.apk ./deliverables/marvelApp-v$VERSION_NAME-$VERSION_CODE-debug.apk
+    - mv ./marvelApp/app/build/outputs/apk/app-debug.apk ./deliverables/marvelApp-v$VERSION_NAME-$VERSION_CODE-debug.apk
   artifacts:
     expire_in: 3 days
     paths:
@@ -81,10 +82,11 @@ package_release:
   <<: *package_template_def
   stage: package
   environment: Release
+  when: manual
   only:
     - master
   script:
-    - mv app/build/outputs/apk/app-release.apk ./deliverables/marvelapp-v$VERSION_NAME-$VERSION_CODE-release.apk
+    - mv ./marvelApp/app/build/outputs/apk/app-release.apk ./deliverables/marvelapp-v$VERSION_NAME-$VERSION_CODE-release.apk
   artifacts:
     expire_in: 4 weeks
     paths:
