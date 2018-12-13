@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class MainPresenter(private val marvelApiService: MarvelApiService) : BasePresenter<PresenterContract.MainView>(), PresenterContract.PresenterMain {
+class MainPresenter(private val marvelApiService: MarvelApiService) : BasePresenter<MainView>(), PresenterContract.PresenterMain {
 
     private val hash = HashUtils.md5(String.format("%s%s%s", "1", BuildConfig.SECRET, BuildConfig.APIKEY))
 
