@@ -1,5 +1,6 @@
 package com.martinb.marvelapp.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.martinb.marvelapp.BuildConfig
 import com.martinb.marvelapp.data.remote.MarvelApiService
 import com.martinb.marvelapp.ui.ComicsFragmentPresenter
@@ -7,14 +8,14 @@ import com.martinb.marvelapp.ui.MainPresenter
 import okhttp3.OkHttpClient
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 val marvelAppModule = module {
     single { MainPresenter(get()) }
     single { createService() }
     single { ComicsFragmentPresenter(get()) }
 }
+
 
 fun createService(): MarvelApiService {
 
@@ -24,8 +25,8 @@ fun createService(): MarvelApiService {
     val retrofit by lazy {
         Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(okHttpClient)
                 .build()
     }
