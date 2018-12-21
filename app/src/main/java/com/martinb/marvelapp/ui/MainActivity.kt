@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
             else
                 Toast.makeText(applicationContext,"Please, insert something", LENGTH_SHORT).show()
         }
+
         mainPresenter.attachView(this)
         mainPresenter.getCharacterInfo()
     }
