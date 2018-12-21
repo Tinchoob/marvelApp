@@ -71,7 +71,7 @@ class ComicsFragment : DialogFragment(), ComicsView {
     override fun getComicsData(comicsResult: ComicsResults) {
         if(view != null){
             val gridview: GridView = view!!.findViewById(R.id.gridview)
-            gridview.adapter = ComicsAdapter(context!!, comicsResult.comicsData.comicInformation)
+            gridview.adapter = ComicsAdapter(context!!, comicsResult.data.results)
         }
 
     }

@@ -1,8 +1,8 @@
 package com.martinb.marvelapp.data.model
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ComicsData(@SerializedName("results")val comicInformation: List<ComicInformation>) : Parcelable
+data class ComicsData(@Json(name="results")val results: List<ComicInformation>) : Parcelable

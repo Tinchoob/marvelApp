@@ -18,7 +18,7 @@ public interface MarvelApiService {
                                           @Query("nameStartsWith") String input);
 
     @GET("/v1/public/comics")
-    Observable<ComicsResults> getComicsData(@Query("ts") String timeStamp,
+    Deferred<ComicsResults> getComicsData(@Query("ts") String timeStamp,
                                             @Query("apikey") String API_KEY, @Query("hash") String Hash,
                                             @Query("characters") String characterId);
 

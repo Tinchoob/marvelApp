@@ -1,8 +1,6 @@
 package com.martinb.marvelapp.ui
 
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +13,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_character_description.*
 
 class CharacterDescriptionFragment : DialogFragment() {
-    // TODO: Rename and change types of parameters
 
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var character : Result

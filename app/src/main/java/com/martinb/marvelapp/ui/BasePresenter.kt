@@ -1,5 +1,8 @@
 package com.martinb.marvelapp.ui
 
+import com.martinb.marvelapp.BuildConfig
+import com.martinb.marvelapp.data.HashUtils
+
 
 open class BasePresenter<T : MvpView> : Presenter<T> {
 

@@ -15,7 +15,7 @@ class MainPresenter(private val marvelApiService: MarvelApiService) : BasePresen
     override fun getCharacterInfo() {
 
         GlobalScope.launch(Dispatchers.Main) {
-            val request = marvelApiService.getData("1", BuildConfig.APIKEY, hash)
+            val request = marvelApiService.getData(timestamp, BuildConfig.APIKEY, hash)
             try {
                 val response = request.await()
                 mvpView?.charactersInfo(response)
@@ -31,7 +31,7 @@ class MainPresenter(private val marvelApiService: MarvelApiService) : BasePresen
     override fun getCharacterFilteredInfo(input: String) {
 
         GlobalScope.launch(Dispatchers.Main) {
-            val request = marvelApiService.getDataFiltered("1", BuildConfig.APIKEY, hash, input)
+            val request = marvelApiService.getDataFiltered(timestamp, BuildConfig.APIKEY, hash, input)
             try {
                 val response = request.await()
                 mvpView?.filteredCharactersInfo(response)
