@@ -11,5 +11,8 @@ public interface PresenterContract {
 
     }
 
+    interface PresenterComics{
+        void getComicsByCharacter(String characterId);
+    }
 
 }

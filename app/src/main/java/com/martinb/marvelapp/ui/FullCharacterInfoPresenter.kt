@@ -1,4 +1,8 @@
 package com.martinb.marvelapp.ui
 
-class FullCharacterInfoPresenter : BasePresenter<FullCharacterInfoView>(), PresenterContract.PresenterFullInfo {
+import com.martinb.marvelapp.data.remote.MarvelApiService
+
+class FullCharacterInfoPresenter(private val marvelApiService: MarvelApiService) : BasePresenter<FullCharacterInfoView>(), PresenterContract.PresenterFullInfo {
+
+
 }

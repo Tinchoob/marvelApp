@@ -3,6 +3,7 @@ package com.martinb.marvelapp.ui
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.data.model.Comics
+import com.martinb.marvelapp.data.model.ComicsResults
+import org.koin.android.ext.android.inject
 
 /**
  * A simple [Fragment] subclass.
@@ -21,16 +24,21 @@ import com.martinb.marvelapp.data.model.Comics
  * create an instance of this fragment.
  *
  */
-class ComicsFragment : DialogFragment() {
-    // TODO: Rename and change types of parameters
+class ComicsFragment : DialogFragment(), ComicsView {
+
     private var listener: OnFragmentInteractionListener? = null
-    private var comics: Comics? = null
+    private var characterId2: String? = ""
+    private val comicsFragmentPresenter: ComicsFragmentPresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            comics = arguments?.getParcelable("comics")
-        }
+        comicsFragmentPresenter.attachView(this)
+//        arguments?.let {
+//           characterId = arguments?.getString("characterId")
+//        }
+
+        comicsFragmentPresenter.getComicsByCharacter(characterId2 ?: return)
+
 
     }
 
@@ -43,25 +51,29 @@ class ComicsFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gridview: GridView = view.findViewById(R.id.gridview)
-        comics.let {
-            gridview.adapter = ComicsAdapter(this.requireContext(), comics.items)
-        }
 
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
+//        if (context is OnFragmentInteractionListener) {
+//            listener = context
+//        } else {
+//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+//        }
     }
 
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    override fun getComicsData(comicsResult: ComicsResults) {
+        if(view != null){
+            val gridview: GridView = view!!.findViewById(R.id.gridview)
+            gridview.adapter = ComicsAdapter(context!!, comicsResult.comicsData.comicInformation)
+        }
+
     }
 
     /**
@@ -91,10 +103,11 @@ class ComicsFragment : DialogFragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(comics: Comics) =
+        fun newInstance(characterId: String?) =
                 ComicsFragment().apply {
                     arguments = Bundle().apply {
-                        arguments.putParcelable("comics",comics)
+                        //   arguments?.putString("characterId",characterId)
+                        characterId2 = characterId;
                     }
                 }
     }
