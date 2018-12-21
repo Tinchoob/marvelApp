@@ -1,7 +1,5 @@
 package com.martinb.marvelapp.ui;
 
-import com.martinb.marvelapp.data.model.Character;
-
 public interface PresenterContract {
 
     interface PresenterMain {
@@ -9,9 +7,12 @@ public interface PresenterContract {
         void getCharacterFilteredInfo(String input);
     }
 
-    interface MainView extends MvpView {
-        void charactersInfo(Character character);
-        void filteredCharactersInfo(Character character);
+    interface PresenterFullInfo{
+
+    }
+
+    interface PresenterComics{
+        void getComicsByCharacter(String characterId);
     }
 
 }

@@ -23,8 +23,15 @@
     <TextView
         android:id="@+id/desciption"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/extra_info"
+        android:layout_width="wrap_content"
+        android:text="Extra info"
+        android:textStyle="bold"
+        android:background="@drawable/shape"
+        android:layout_height="wrap_content"
+        />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

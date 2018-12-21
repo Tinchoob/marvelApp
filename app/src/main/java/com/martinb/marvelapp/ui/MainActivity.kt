@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.startKoin
 
-class MainActivity : AppCompatActivity(), PresenterContract.MainView,OnItemClicked {
+class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
 
     private lateinit var adapter: CharacterAdapter
     private lateinit var characterDescriptionFragment : CharacterDescriptionFragment

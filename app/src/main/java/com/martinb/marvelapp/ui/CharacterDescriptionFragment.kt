@@ -1,5 +1,8 @@
 package com.martinb.marvelapp.ui
 
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,7 +30,16 @@ class CharacterDescriptionFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         desciption.text = if(character.description != "") character.description else "No description avaliable!!"
-        Picasso.get().load(Uri.parse("${character.thumbnail?.path}/standard_fantastic.${character.thumbnail?.extension}")).into(image_character)
+        Picasso.get().load(Uri.parse("${character.thumbnail.path}/standard_fantastic.${character.thumbnail.extension}")).into(image_character)
+        extra_info.setOnClickListener {
+            val intent = Intent(context,FullCharacterInfoActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString("characterId",character.id)
+            bundle.putString("characterName",character.name)
+            intent.putExtras(bundle)
+            startActivity(intent)
+        }
+
     }
 
     fun onButtonPressed(uri: Uri) {
