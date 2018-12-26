@@ -1,5 +1,6 @@
 package com.martinb.marvelapp.ui
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -8,7 +9,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.martinb.marvelapp.R
-import com.martinb.marvelapp.data.model.Result
+import com.martinb.marvelapp.ui.comics.ComicsActivity
+import com.martinb.marvelapp.ui.comics.ComicsFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_full_character_info.*
 
@@ -23,19 +25,14 @@ class FullCharacterInfoActivity : AppCompatActivity(), FullCharacterInfoView {
         val characterImagePath = bundle?.getString("characterImagePath")
         title = characterName
 
-        loadBackgroundImage(characterImagePath)
+        Picasso.get().load(Uri.parse(characterImagePath)).into(target)
 
         comics.setOnClickListener {
-            val comicsFragment = ComicsFragment.newInstance(characterId)
-            val fm = this@FullCharacterInfoActivity.supportFragmentManager
-            comicsFragment.show(fm, "description")
-
+           val intent = Intent(this,ComicsActivity::class.java)
+            intent.putExtra("characterId",characterId)
+            startActivity(intent)
         }
 
-    }
-
-    fun loadBackgroundImage(imagePath : String?){
-        Picasso.get().load(Uri.parse(imagePath)).into(target)
     }
 
     val target = object: com.squareup.picasso.Target {
