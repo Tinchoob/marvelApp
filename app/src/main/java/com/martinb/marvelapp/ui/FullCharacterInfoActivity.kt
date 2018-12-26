@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.ui.comics.ComicsActivity
-import com.martinb.marvelapp.ui.comics.ComicsFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_full_character_info.*
 

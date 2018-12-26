@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.data.model.Character
 import com.martinb.marvelapp.data.model.Result
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
 
     private lateinit var adapter: CharacterAdapter
     private lateinit var characterDescriptionFragment : CharacterDescriptionFragment
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private val mainPresenter : MainPresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
         setContentView(R.layout.activity_main)
         startKoin(this, listOf(marvelAppModule))
         checkPermissionStatus()
+
+        swipeRefreshLayout = findViewById(R.id.swiperefresh);
 
         baseRecycler.layoutManager = LinearLayoutManager(this)
 
@@ -39,6 +43,7 @@ class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
         }
 
         mainPresenter.attachView(this)
+        swipeRefreshLayout.isRefreshing = true
         mainPresenter.getCharacterInfo()
     }
 
@@ -59,6 +64,7 @@ class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
     }
 
     override fun charactersInfo(character: Character?) {
+        swipeRefreshLayout.isRefreshing = false
         character?.let { setAdapter(character)}
     }
 

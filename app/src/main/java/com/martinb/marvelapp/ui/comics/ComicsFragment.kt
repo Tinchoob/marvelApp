@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.GridView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.data.model.ComicsResults
 import org.koin.android.ext.android.inject
@@ -24,6 +25,7 @@ import org.koin.android.ext.android.inject
  */
 class ComicsFragment : Fragment(), ComicsView {
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var listener: OnFragmentInteractionListener? = null
     private var characterId2: String? = ""
     private val comicsFragmentPresenter: ComicsFragmentPresenter by inject()
@@ -32,14 +34,16 @@ class ComicsFragment : Fragment(), ComicsView {
         super.onCreate(savedInstanceState)
         comicsFragmentPresenter.attachView(this)
 
-        comicsFragmentPresenter.getComicsByCharacter(characterId2 ?: return)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comics, container, false)
+        val view = inflater.inflate(R.layout.fragment_comics, container, false)
+
+        swipeRefreshLayout = view.findViewById(R.id.comics_refresh)
+        swipeRefreshLayout.isRefreshing = true
+        comicsFragmentPresenter.getComicsByCharacter(characterId2 ?: return view)
+        return view
     }
 
     override fun onDetach() {
@@ -48,6 +52,7 @@ class ComicsFragment : Fragment(), ComicsView {
     }
 
     override fun getComicsData(comicsResult: ComicsResults) {
+        swipeRefreshLayout.isRefreshing = false
         if(view != null){
             val gridview: GridView = view!!.findViewById(R.id.gridview)
             gridview.adapter = ComicsAdapter(context!!, comicsResult.data.comicInformation)
