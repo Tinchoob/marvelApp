@@ -1,4 +1,4 @@
-package com.martinb.marvelapp.ui
+package com.martinb.marvelapp.ui.comics
 
 import android.content.Context
 import android.net.Uri

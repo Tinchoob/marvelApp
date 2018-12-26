@@ -1,7 +1,9 @@
-package com.martinb.marvelapp.ui
+package com.martinb.marvelapp.ui.comics
 
 import com.martinb.marvelapp.BuildConfig
 import com.martinb.marvelapp.data.remote.MarvelApiService
+import com.martinb.marvelapp.ui.BasePresenter
+import com.martinb.marvelapp.ui.PresenterContract
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
