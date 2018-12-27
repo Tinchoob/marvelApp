@@ -26,12 +26,14 @@ class CharacterDescriptionFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val characterImagePath = "${character.thumbnail.path}/standard_fantastic.${character.thumbnail.extension}"
         desciption.text = if(character.description != "") character.description else "No description avaliable!!"
-        Picasso.get().load(Uri.parse("${character.thumbnail.path}/standard_fantastic.${character.thumbnail.extension}")).into(image_character)
+        Picasso.get().load(Uri.parse(characterImagePath)).into(image_character)
         extra_info.setOnClickListener {
             val intent = Intent(context,FullCharacterInfoActivity::class.java)
             val bundle = Bundle()
             bundle.putString("characterId",character.id)
+            bundle.putString("characterImagePath",characterImagePath)
             bundle.putString("characterName",character.name)
             intent.putExtras(bundle)
             startActivity(intent)
@@ -43,9 +45,7 @@ class CharacterDescriptionFragment : DialogFragment() {
         listener?.onFragmentInteraction(uri)
     }
 
-
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
