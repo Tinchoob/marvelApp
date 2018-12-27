@@ -10,7 +10,7 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-val marvelAppModule = module {
+val marvelAppModule = module(override=true) {
     single { MainPresenter(get()) }
     single { createService() }
     single { ComicsFragmentPresenter(get()) }

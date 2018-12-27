@@ -9,7 +9,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.martinb.marvelapp.R
-import com.martinb.marvelapp.ui.comics.ComicsActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_full_character_info.*
 
@@ -27,7 +26,7 @@ class FullCharacterInfoActivity : AppCompatActivity(), FullCharacterInfoView {
         Picasso.get().load(Uri.parse(characterImagePath)).into(target)
 
         comics.setOnClickListener {
-           val intent = Intent(this,ComicsActivity::class.java)
+           val intent = Intent(this, NavigationActivity::class.java)
             intent.putExtra("characterId",characterId)
             startActivity(intent)
         }

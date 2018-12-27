@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        startKoin(this, listOf(marvelAppModule))
+        startKoin(applicationContext, listOf(marvelAppModule))
         checkPermissionStatus()
 
         swipeRefreshLayout = findViewById(R.id.swiperefresh);

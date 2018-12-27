@@ -1,21 +1,22 @@
-package com.martinb.marvelapp.ui.comics
+package com.martinb.marvelapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.martinb.marvelapp.R
+import com.martinb.marvelapp.ui.comics.ComicsFragment
 
-class ComicsActivity : AppCompatActivity(),MainComicsView{
+class NavigationActivity : AppCompatActivity(), NavigationActivityView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comics)
         val characterId = intent.getStringExtra("characterId")
-        navigate(characterId)
+        navigateTo(characterId,"")
     }
 
-    private fun navigate(characterId : String){
+    override fun navigateTo(characterId : String,fragment: String){
         val comicsFragment = ComicsFragment.newInstance(characterId)
-        val transaction = this@ComicsActivity.supportFragmentManager.beginTransaction()
+        val transaction = this@NavigationActivity.supportFragmentManager.beginTransaction()
         transaction.replace(R.id.comics_container,comicsFragment)
         transaction.commit()
     }
