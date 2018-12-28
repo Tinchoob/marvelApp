@@ -2,35 +2,46 @@ package com.martinb.marvelapp.ui
 
 import com.martinb.marvelapp.BuildConfig
 import com.martinb.marvelapp.data.HashUtils
-import com.martinb.marvelapp.data.remote.MarvelApiClient
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.martinb.marvelapp.data.remote.MarvelApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 
-class MainPresenter : BasePresenter<PresenterContract.MainView>(), PresenterContract.PresenterMain {
+class MainPresenter(private val marvelApiService: MarvelApiService) : BasePresenter<MainView>(), PresenterContract.PresenterMain {
 
-    private val marvelApiClient = MarvelApiClient.create()
-    private val hash = HashUtils.md5(String.format("%s%s%s", "1", BuildConfig.SECRET, BuildConfig.APIKEY))
 
     override fun getCharacterInfo() {
-        compositeDisposable.add(
-                marvelApiClient.getData("1", BuildConfig.APIKEY, hash).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { result ->
-                            mvpView?.charactersInfo(result)
-                        })
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val request = marvelApiService.getData(timestamp, BuildConfig.APIKEY, hash)
+            try {
+                val response = request.await()
+                mvpView?.charactersInfo(response)
+            } catch (e: HttpException) {
+                e.stackTrace
+            } catch (e: Throwable) {
+                e.stackTrace
+            }
+        }
 
     }
 
     override fun getCharacterFilteredInfo(input: String) {
-        compositeDisposable.add(
-                marvelApiClient.getDataFiltered("1",BuildConfig.APIKEY,hash,input)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe{ result -> mvpView?.filteredCharactersInfo(result)
-                        }
-        )
-   }
 
+        GlobalScope.launch(Dispatchers.Main) {
+            val request = marvelApiService.getDataFiltered(timestamp, BuildConfig.APIKEY, hash, input)
+            try {
+                val response = request.await()
+                mvpView?.filteredCharactersInfo(response)
+            } catch (e: HttpException) {
+                e.stackTrace
+            } catch (e: Throwable) {
+                e.stackTrace
+            }
 
+        }
+
+    }
 }
