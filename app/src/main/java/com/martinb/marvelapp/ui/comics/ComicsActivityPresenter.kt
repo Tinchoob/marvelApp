@@ -5,5 +5,4 @@ import com.martinb.marvelapp.ui.BasePresenter
 import com.martinb.marvelapp.ui.NavigationActivityView
 import com.martinb.marvelapp.ui.PresenterContract
 
-class ComicsActivityPresenter(private val marvelApiService: MarvelApiService) : BasePresenter<NavigationActivityView>(), PresenterContract.PresenterMainComics {
-}
+class ComicsActivityPresenter(private val marvelApiService: MarvelApiService) : BasePresenter<NavigationActivityView>(), PresenterContract.PresenterMainComics

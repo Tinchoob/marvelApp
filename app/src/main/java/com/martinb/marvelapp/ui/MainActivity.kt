@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), MainView,OnItemClicked {
         startKoin(applicationContext, listOf(marvelAppModule))
         checkPermissionStatus()
 
-        swipeRefreshLayout = findViewById(R.id.swiperefresh);
+        swipeRefreshLayout = findViewById(R.id.swiperefresh)
 
         baseRecycler.layoutManager = LinearLayoutManager(this)
 

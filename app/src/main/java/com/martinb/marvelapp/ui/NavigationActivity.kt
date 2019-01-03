@@ -1,9 +1,10 @@
 package com.martinb.marvelapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.martinb.marvelapp.R
 import com.martinb.marvelapp.ui.comics.ComicsFragment
+
 
 class NavigationActivity : AppCompatActivity(), NavigationActivityView {
 

@@ -29,7 +29,7 @@ class CharacterAdapter(val context: Context, var data: List<Result>,val listener
         holder.characterName.text = character.name
         holder.characterDescription.text = if(character.description == "") "No description avaliable!!" else character.description
         holder.bind(data[position], listener)
-        Picasso.get().load(Uri.parse(String.format("%s/standard_fantastic.%s", character.thumbnail?.path,character.thumbnail?.extension))).into(holder.characterImage)
+        Picasso.get().load(Uri.parse(String.format("%s/standard_fantastic.%s", character.thumbnail.path, character.thumbnail.extension))).into(holder.characterImage)
     }
 
     override fun getItemCount(): Int = data.size

@@ -91,7 +91,7 @@ class ComicsFragment : Fragment(), ComicsView {
                 ComicsFragment().apply {
                     arguments = Bundle().apply {
                         //   arguments?.putString("characterId",characterId)
-                        characterId2 = characterId;
+                        characterId2 = characterId
                     }
                 }
     }
