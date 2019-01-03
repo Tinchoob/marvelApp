@@ -32,9 +32,12 @@ class ComicsAdapter(private val mContext: Context,private val comics: List<Comic
         val comicImage = comicView.findViewById<ImageView>(R.id.comic_image)
         val comicName = comicView.findViewById<TextView>(R.id.comic_title)
         val comicPrice = comicView.findViewById<TextView>(R.id.comic_price)
+        val comicDescription = comicView.findViewById<TextView>(R.id.comic_description)
+
 
         Picasso.get().load(Uri.parse("${comic.thumbnail.path}/standard_fantastic.${comic.thumbnail.extension}")).into(comicImage)
         comicName.text = comic.title
+        comicDescription.text = comic.description
         comicPrice.text = "$${comic.prices[0].price}"
         return comicView
     }

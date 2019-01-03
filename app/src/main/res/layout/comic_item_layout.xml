@@ -1,46 +1,62 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="20dp"
-    >
+    android:background="@color/FloralWhite"
+    android:layout_margin="30dp">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageview_cover_art"
+            android:id="@+id/comic_image"
+            android:layout_width="wrap_content"
+            android:layout_height="155dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/comic_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"/>
+            app:layout_constraintLeft_toRightOf="@id/comic_image"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:maxWidth="300dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Are You My Mother" />
 
-        <ImageView
-            android:id="@+id/imageview_favorite"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="bottom|end"/>
+        <TextView
+            android:id="@+id/comic_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:maxLines="5"
+            android:maxWidth="250dp"
+            android:ellipsize="end"
+            android:text="dasdasdsadasd"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/comic_image"
+            app:layout_constraintTop_toBottomOf="@id/comic_title"
+            app:layout_constraintBottom_toTopOf="@id/comic_price"/>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/comic_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="#000"
+            android:layout_marginTop="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    <TextView
-        android:id="@+id/textview_comic_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        tools:text="Are You My Mother"
-        android:textStyle="bold"
-        android:paddingTop="4dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:gravity="center_horizontal"/>
 
-    <TextView
-        android:id="@+id/textview_comic_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:gravity="center_horizontal"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

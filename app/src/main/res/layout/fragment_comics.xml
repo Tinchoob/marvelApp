@@ -9,19 +9,16 @@
         android:id="@+id/comics_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient">
+        android:background="@color/PattensBlue">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnWidth="90dp"
-        android:numColumns="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="1"
         android:verticalSpacing="20dp"
         android:horizontalSpacing="20dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        />
+         />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>
